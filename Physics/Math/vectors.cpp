@@ -12,8 +12,30 @@
 #define RELATIVE(x,y) \
 		(fabsf((x)-(y)) <= FLT_EPSILON * Max(fabsf(x),fabsf(y)))
 
-#define RAD2DEG(x) ((x)*57.295754f)
-#define DEG2RAD(x) ((x)*0.0174533f)
+float CorrectDegrees(float degrees) {
+	while (degrees > 360.0f) {
+		degrees -= 360.0f;
+	}
+	while (degrees < -360.0f) {
+		degrees += 360.0f;
+	}
+	return degrees;
+}
+
+#ifndef RAD2DEG
+float RAD2DEG(float radians) {
+	float degrees = radians * 57.295754f;
+	degrees = CorrectDegrees(degrees);
+	return degrees;
+}
+#endif
+#ifndef DEG2RAD
+float DEG2RAD(float degrees) {
+	degrees = CorrectDegrees(degrees);
+	float radians = degrees * 0.0174533f;
+	return radians;
+}
+#endif
 
 vec2 operator+(const vec2& l, const vec2& r) {
 	return { l.x + r.x,l.y + r.y };

@@ -1,6 +1,14 @@
 #ifndef _H_MATH_VECTORS_
 #define _H_MATH_VECTORS_
 
+#ifndef RAD2DEG
+float RAD2DEG(float radians);
+#endif 
+#ifndef DEG2RAD
+float DEG2RAD(float degrees);
+#endif
+float CorrectDegrees(float degrees);
+
 typedef struct vec2
 {
 	union {
