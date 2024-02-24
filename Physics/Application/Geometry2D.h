@@ -111,7 +111,7 @@ bool CircleRectangle(const Circle& circle, const Rectangle2D& rect);
 bool CircleOrientedRectangle(const Circle& circle, const OrientedRectangle& rect);
 #define OrientedRectangleCircle(rectangle,circle) \
 	CircleOrientedRectangle(circle,rectangle)
-bool RctangleRectangle(const Rectangle2D& rect1, const OrientedRectangle& rect);
+bool RectangleRectangle(const Rectangle2D& rect1, const Rectangle2D& rect2);
 
 Interval2D GetInterval(const Rectangle2D& rect1, const vec2& axis);
 bool OverlapOnAxis(const Rectangle2D& rect1, const Rectangle2D& rect2, const vec2& axis);
