@@ -132,7 +132,7 @@ std::ostream& operator<<(std::ostream& os, const OrientedRectangle& shape) {
 	return os;
 }
 
-//ÏßÓëÔ²Ïà½»²âÊÔ
+//çº¿ä¸åœ†ç›¸äº¤æµ‹è¯•
 bool LineCircle(const Line2D& line, const Circle& circle)
 {
 	//Turn line into vector
@@ -534,7 +534,7 @@ Circle ContainingCircleAlt(Point2D* pointArray, int arrayCount) {
 		max.y = pointArray[i].y > max.y ? pointArray[i].y : max.y;
 	}
 
-	//ÕÒµ½×îĞ¡/´óµÄxºÍy
+	//æ‰¾åˆ°æœ€å°/å¤§çš„xå’Œy
 	return Circle((min + max) * 0.5f, Magnitude(max - min) * 0.5f);
 }
 

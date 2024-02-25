@@ -15,7 +15,7 @@ int QuadTreeNode::NumObjects() {
 	for (int i = 0, size = contents.size(); i < size; ++i) {
 		contents[i]->flag = true;
 	}
-	//bfs±éÀúµ±Ç°ËùÓĞµÄ½Úµã
+	//bfséå†å½“å‰æ‰€æœ‰çš„èŠ‚ç‚¹
 	std::queue<QuadTreeNode*> process;
 	process.push(this);
 
@@ -39,22 +39,22 @@ int QuadTreeNode::NumObjects() {
 		process.pop();
 	}
 }
-//Ïòµ±Ç°½Úµã²åÈëÒ»¸ö½ÚµãÊı¾İ
+//å‘å½“å‰èŠ‚ç‚¹æ’å…¥ä¸€ä¸ªèŠ‚ç‚¹æ•°æ®
 void QuadTreeNode::Insert(QuadTreeData& data) {
-	//Èç¹ûdataµÄboundsºÍµ±Ç°½ÚµãµÄbounds²»Ïà½»£¬ÔòÎŞ·¨²åÈë
+	//å¦‚æœdataçš„boundså’Œå½“å‰èŠ‚ç‚¹çš„boundsä¸ç›¸äº¤ï¼Œåˆ™æ— æ³•æ’å…¥
 	if (!RectangleRectangle(data.bounds, nodeBounds)) {
 		return;//The object does not fit into this node
 	}
-	//Èç¹ûÊÇÒ¶×Ó½ÚµãÇÒÒÑ¾­³¬¹ıÁËÃ¿¸ö½Úµã×î´óµÄ¶ÔÏóÊıÁ¿,²ğ·Ö
+	//å¦‚æœæ˜¯å¶å­èŠ‚ç‚¹ä¸”å·²ç»è¶…è¿‡äº†æ¯ä¸ªèŠ‚ç‚¹æœ€å¤§çš„å¯¹è±¡æ•°é‡,æ‹†åˆ†
 	if (IsLeaf() && contents.size() + 1 > maxObjectsPerNode) {
 		Split(); // Try splitting!
 	}
-	//Í¨¹ı ÊÇÒ¶×Ó½Úµã£¬²åÈë
+	//é€šè¿‡ æ˜¯å¶å­èŠ‚ç‚¹ï¼Œæ’å…¥
 	if (IsLeaf()) {
 		contents.push_back(&data);
 	}
 	else {
-		//²»ÊÇÒ¶×Ó½Úµã£¬²åÈëµ½×Ó½ÚµãÖĞµÄÃ¿Ò»¸ö(?
+		//ä¸æ˜¯å¶å­èŠ‚ç‚¹ï¼Œæ’å…¥åˆ°å­èŠ‚ç‚¹ä¸­çš„æ¯ä¸€ä¸ª(?
 		for (int i = 0, size = children.size(); i < size; ++i) {
 			children[i].Insert(data);
 		}
@@ -89,7 +89,7 @@ void QuadTreeNode::Update(QuadTreeData& data) {
 	Insert(data);
 }
 
-//ÖØ¹¹Ê÷½á¹¹
+//é‡æ„æ ‘ç»“æ„
 void QuadTreeNode::Shake() {
 	//Cant shake a leaf
 	if (!IsLeaf()) {
