@@ -99,7 +99,7 @@ float MagnitudeSq(const vec2& v) {
 	return Dot(v, v);
 }
 
-float Magnitude(const vec3& v) {
+float MagnitudeSq(const vec3& v) {
 	return Dot(v, v);
 }
 float Distance(const vec3& p1, const vec3& p2) {

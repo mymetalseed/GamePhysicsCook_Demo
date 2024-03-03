@@ -261,6 +261,35 @@ mat3 Cofactor(const mat3& mat) {
 	return result;
 }
 
+mat4 Minor(const mat4& mat) {
+	mat4 result;
+
+	for (int i = 0; i < 4; ++i) {
+		for (int j = 0; j < 4; ++j) {
+			result[i][j] = Determinant(Cut(mat, i, j));
+		}
+	}
+
+	return result;
+}
+
+mat4 Cofactor(const mat4& mat) {
+	mat4 result;
+	Cofactor(result.asArray, Minor(mat).asArray, 4, 4);
+	return result;
+}
+
+float Determinant(const mat4& mat) {
+	float result = 0.0f;
+
+	mat4 cofactor = Cofactor(mat);
+	for (int j = 0; j < 4; ++j) {
+		result += mat.asArray[4 * 0 + j] * cofactor[0][j];
+	}
+
+	return result;
+}
+
 //°éËæ¾ØÕó
 mat2 Adjugate(const mat2& mat) {
 	return Transpose(Cofactor(mat));

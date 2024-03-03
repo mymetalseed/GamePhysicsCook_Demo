@@ -38,6 +38,8 @@ int QuadTreeNode::NumObjects() {
 
 		process.pop();
 	}
+
+	return objectCount;
 }
 //向当前节点插入一个节点数据
 void QuadTreeNode::Insert(QuadTreeData& data) {

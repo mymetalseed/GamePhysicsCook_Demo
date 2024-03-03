@@ -139,6 +139,13 @@ bool PointInOBB(const Point& point, const OBB& obb) {
 	return true;
 }
 
+Point ClosestPoint(const Sphere& sphere, const Point& point) {
+	vec3 sphereToPoint = point - sphere.position;
+	Normalize(sphereToPoint);
+	sphereToPoint = sphereToPoint * sphere.radius;
+	return sphereToPoint + sphere.position;
+}
+
 Point ClosestPoint(const AABB& aabb, const Point& point) {
 	Point result = point;
 	Point min = GetMin(aabb);
@@ -234,10 +241,6 @@ Point ClosestPoint(const Ray& ray, const Point& point) {
 	//of the normal, which tchnically the line segment is
 	//but this is much more explicit and easy to read.
 	return Point(ray.origin + ray.direction * t);
-}
-
-bool PointInPlane(const Point& point, const Plane& plane) {
-	return PointOnPlane(point, plane);
 }
 
 bool PointInPlane(const Point& point, const Plane& plane) {
@@ -779,6 +782,19 @@ bool Linetest(const Plane& plane, const Line& line) {
 
 	float t = (plane.distance - nA) / nAB;
 	return t >= 0.0f && t <= 1.0f;
+}
+
+bool Linetest(const AABB& aabb, const Line& line) {
+	Ray ray;
+	ray.origin = line.start;
+	ray.direction = Normalized(line.end - line.start);
+	RaycastResult raycast;
+	if (!Raycast(aabb, ray, &raycast)) {
+		return false;
+	}
+	float t = raycast.t;
+
+	return t >= 0 && t * t <= LengthSq(line);
 }
 
 bool Linetest(const OBB& obb, const Line& line) {
@@ -1809,14 +1825,14 @@ Point Intersection(Plane p1, Plane p2, Plane p3) {
 }
 
 void GetCorners(const Frustum& f, vec3* outCorners) {
-	outCorners[0] = Intersection(f._near, f.top, f.left);
-	outCorners[1] = Intersection(f._near, f.top, f.right);
-	outCorners[2] = Intersection(f._near, f.bottom, f.left);
-	outCorners[3] = Intersection(f._near, f.bottom, f.right);
-	outCorners[4] = Intersection(f._far, f.top, f.left);
-	outCorners[5] = Intersection(f._far, f.top, f.right);
-	outCorners[6] = Intersection(f._far, f.bottom, f.left);
-	outCorners[7] = Intersection(f._far, f.bottom, f.right);
+	outCorners[0] = Intersection(f.near, f.top, f.left);
+	outCorners[1] = Intersection(f.near, f.top, f.right);
+	outCorners[2] = Intersection(f.near, f.bottom, f.left);
+	outCorners[3] = Intersection(f.near, f.bottom, f.right);
+	outCorners[4] = Intersection(f.far, f.top, f.left);
+	outCorners[5] = Intersection(f.far, f.top, f.right);
+	outCorners[6] = Intersection(f.far, f.bottom, f.left);
+	outCorners[7] = Intersection(f.far, f.bottom, f.right);
 }
 
 bool Intersects(const Frustum& f, const Point& p) {
