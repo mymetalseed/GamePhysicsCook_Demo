@@ -6,6 +6,8 @@
 #include "../Math/vectors.h"
 #include "../Math/matrices.h"
 #include <ostream>
+#undef near
+#undef far
 
 typedef vec3 Point;
 
@@ -143,12 +145,12 @@ typedef struct Frustum {
 			Plane bottom;
 			Plane left;
 			Plane right;
-			Plane _near;
-			Plane _far;
+			Plane near;
+			Plane far;
 		};
 		Plane planes[6];
 	};
-
+	inline Frustum(){}
 	
 } Frustum;
 

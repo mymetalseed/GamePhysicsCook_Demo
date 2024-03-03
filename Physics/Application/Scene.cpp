@@ -1,6 +1,7 @@
 #include "scene.h"
 #include <algorithm>
 #include <stack>
+#include <list>
 
 void Scene::AddModel(Model* model) {
 	if (std::find(objects.begin(), objects.end(), model) != objects.end()) {
@@ -284,5 +285,45 @@ bool Scene::Accelerate(const vec3& position, float size) {
 }
 
 
+std::vector<Model*> Scene::Cull(const Frustum& f) {
+	std::vector<Model*> result;
 
+	if (octree == 0) {
+		for (int i = 0; i < objects.size(); ++i) {
+			OBB bounds = GetOBB(*(objects[i]));
+			if (Intersects(f, bounds)) {
+				result.push_back(objects[i]);
+			}
+		}
+	}
+	else {
+		std::list<OctreeNode*> nodes;
+		nodes.push_back(octree);
 
+		while (nodes.size() > 0) {
+			OctreeNode* active = *nodes.begin();
+			nodes.pop_front();
+
+			//Has child nodes
+			if (active->children != 0) {
+				for (int i = 0; i < 8; ++i) {
+					AABB bounds = active->children[i].bounds;
+					if (Intersects(f, bounds)) {
+						nodes.push_back(&active->children[i]);
+					}
+				}
+			}
+			else {
+				//Is leaf node
+				for (int i = 0; i < active->models.size(); ++i) {
+					OBB bounds = GetOBB(*(active->models[i]));
+					if (Intersects(f, bounds)) {
+						result.push_back(active->models[i]);
+					}
+				}
+			}
+		}
+
+		return result;
+	}
+}

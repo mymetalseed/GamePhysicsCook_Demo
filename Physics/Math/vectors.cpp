@@ -2,12 +2,6 @@
 #include <cmath>
 #include <cfloat>
 
-#define CMP(x,y)                           \
-		(fabsf((x)-(y)) <= FLT_EPSILON *  \
-          fmax(1.0f,                       \
-		  fmax(fabsf(x),fabsf(y)))         \
-		)
-
 #define ABSOLUTE(x,y) (fabsf((x)-(y)) <= FLT_EPSILON)
 #define RELATIVE(x,y) \
 		(fabsf((x)-(y)) <= FLT_EPSILON * Max(fabsf(x),fabsf(y)))

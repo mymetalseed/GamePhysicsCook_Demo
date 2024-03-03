@@ -1,6 +1,12 @@
 #ifndef _H_MATH_VECTORS_
 #define _H_MATH_VECTORS_
 
+#define CMP(x,y)                           \
+		(fabsf((x)-(y)) <= FLT_EPSILON *  \
+          fmax(1.0f,                       \
+		  fmax(fabsf(x),fabsf(y)))         \
+		)
+
 #ifndef RAD2DEG
 float RAD2DEG(float radians);
 #endif 
