@@ -38,12 +38,13 @@ file(GLOB_RECURSE Application Application/*.cxx Application/*.c Application/*.cc
 file(GLOB_RECURSE imgui imgui/*.cxx imgui/*.c imgui/*.cc imgui/*.cpp imgui/*.h)
 file(GLOB_RECURSE glad GLAD/*.cxx GLAD/*.c GLAD/*.cc GLAD/*.cpp GLAD/*.h)
 file(GLOB_RECURSE Demos Demos/*.cxx Demos/*.c Demos/*.cc Demos/*.cpp Demos/*.h)
+file(GLOB_RECURSE PhysicsLib Physics/*.cxx Physics/*.c Physics/*.cc Physics/*.cpp Physics/*.h)
 
 # 将目标链接到windows的一些API上
 set(PLATFORM_FRAMEWORKS psapi user32 advapi32 iphlpapi userenv ws2_32)
 
 # 将源代码添加到此项目的可执行文件。
-add_executable (Physics "main-win32.cpp" ${Windows} ${Math} ${Application} ${imgui} ${glad} ${Demos})
+add_executable (Physics "main-win32.cpp" ${Windows} ${Math} ${Application} ${imgui} ${glad} ${Demos} ${PhysicsLib})
 
 
 # target_link_libraries(Physics ${OPENGL_LIBRARIES})
