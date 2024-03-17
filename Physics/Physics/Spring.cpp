@@ -1,6 +1,6 @@
 #include "Spring.h"
 
-void Sprin::SetParticles(Particle* _p1, Particle* _p2) {
+void Spring::SetParticles(Particle* _p1, Particle* _p2) {
 	p1 = _p1;
 	p2 = _p2;
 }

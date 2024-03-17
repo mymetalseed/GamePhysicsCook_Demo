@@ -92,6 +92,10 @@ void PhysicsSystem::Update(float deltaTime) {
 		bodies[i]->ApplyForces();
 	}
 
+	for (int i = 0, size = cloths.size(); i < size; ++i) {
+		cloths[i]->ApplyForces();
+	}
+
 	for (int k = 0; k < ImpulseIteration; ++k) {
 		for (int i = 0; i < results.size(); ++i) {
 			int jSize = results[i].contacts.size();
@@ -103,6 +107,10 @@ void PhysicsSystem::Update(float deltaTime) {
 				}
 			}
 		}
+	}
+
+	for (int i = 0, size = cloths.size(); i < size; ++i) {
+		cloths[i]->Update(deltaTime);
 	}
 
 	for (int i = 0, size = bodies.size(); i < size; ++i) {
@@ -133,10 +141,17 @@ void PhysicsSystem::Update(float deltaTime) {
 		springs[i].ApplyForce(deltaTime);
 	}
 
+	for (int i = 0, size = cloths.size(); i < size; ++i) {
+		cloths[i]->ApplySpringForces(deltaTime);
+	}
+
 	for (int i = 0, size = bodies.size(); i < size; ++i) {
 		bodies[i]->SolveConstraints(constraints);
 	}
 
+	for (int i = 0, size = cloths.size(); i < size; ++i) {
+		cloths[i]->SolveConstraints(constraints);
+	}
 }
 
 
@@ -146,4 +161,14 @@ void PhysicsSystem::AddSpring(const Spring& spring) {
 
 void PhysicsSystem::ClearSprings() {
 	springs.clear();
+}
+
+
+//cloth
+void PhysicsSystem::AddCloth(Cloth* cloth) {
+	cloths.push_back(cloth);
+}
+
+void PhysicsSystem::ClearCloths() {
+	cloths.clear();
 }

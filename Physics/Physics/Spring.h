@@ -14,7 +14,7 @@ protected:
 	float restingLength;
 
 public:
-	inline Spirng(float _k, float _b, float len) : k(_k), b(_b), restingLength(len) {};
+	inline Spring(float _k, float _b, float len) : k(_k), b(_b), restingLength(len) {}
 	Particle* GetP1();
 	Particle* GetP2();
 	void SetParticles(Particle* _p1, Particle* _p2);

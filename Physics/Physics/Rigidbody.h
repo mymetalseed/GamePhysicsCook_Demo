@@ -12,7 +12,6 @@
 class Rigidbody {
 public:
 	int type;
-	Rigidbody(){}
 	virtual ~Rigidbody(){}
 	virtual void Update(float deltaTime) {}
 	virtual void Render(){}
