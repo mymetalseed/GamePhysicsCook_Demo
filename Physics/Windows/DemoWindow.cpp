@@ -1,6 +1,8 @@
 #include "DemoWindow.h"
 #include "../imgui/imgui.h"
 
+#include "../Demos/RaycastDemo.h"
+
 #include <cstdlib>
 
 static DemoWindow g_WindowInstance("Physics Sandbox", 800, 600);
@@ -13,7 +15,7 @@ void DemoWindow::OnInitialize() {
 	m_pDemo = 0;
 	imgui_init = true;
 
-	select_all = false;
+	select_all = true;
 }
 
 DemoWindow::~DemoWindow() {
@@ -69,19 +71,19 @@ void DemoWindow::OnUpdate(float deltaTime) {
 
 		if (m_selectedDemo != lastSelected) {
 			StopDemo();
-			/*
+			
 			switch (m_selectedDemo) {
-			case 0: m_pDemo = new RaycastDemo(); break;
-			case 1: m_pDemo = new CH14Demo(); break;
-			case 2: m_pDemo = new CollisionFeature(); break;
-			case 3: m_pDemo = new LinearImpulse(); break;
-			case 4: m_pDemo = new ConservationOfMomentum(); break;
-			case 5: m_pDemo = new CH15Demo(); break;
-			case 6: m_pDemo = new SimpleSprings(); break;
-			case 7: m_pDemo = new CH16Demo(); break;
-			case 8: m_pDemo = new JointDemo(); break;
+				case 0: m_pDemo = new RaycastDemo(); break;
+				//case 1: m_pDemo = new CH14Demo(); break;
+				//case 2: m_pDemo = new CollisionFeature(); break;
+				//case 3: m_pDemo = new LinearImpulse(); break;
+				//case 4: m_pDemo = new ConservationOfMomentum(); break;
+				//case 5: m_pDemo = new CH15Demo(); break;
+				//case 6: m_pDemo = new SimpleSprings(); break;
+				//case 7: m_pDemo = new CH16Demo(); break;
+				//case 8: m_pDemo = new JointDemo(); break;
 			}
-			*/
+			
 			m_pDemo->Initialize(GetWidth(), GetHeight());
 			ApplyDemoCamera();
 		}

@@ -1,6 +1,6 @@
 #include "DemoBase.h"
 #include "../imgui/imgui.h"
-//#include "FixedFunctionPrimitives.h"
+#include "../Application/FixedFunctionPrimitives.h"
 
 DemoBase::DemoBase() {
 	show_help = false;
@@ -55,7 +55,7 @@ void DemoBase::ImGUI() {
 }
 
 void DemoBase::Render() {
-	//FixedFunctionOrigin();
+	FixedFunctionOrigin();
 }
 
 void DemoBase::SetMouseState(bool left, bool middle, bool right, const vec2& delta, const vec2& mouse) {
